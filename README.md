@@ -1,2 +1,2 @@
-# AI
-K-Lab프로젝트2(24-2) : 사용자 표정 인식을 통한 감정 기반 음악 추천 프로그램
+# Harmony-Lab : MoodTune(AI)
+LivingLab2(24-2) : User emotion-based music recommendation service
