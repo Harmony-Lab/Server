@@ -1,10 +1,8 @@
 from fastapi import FastAPI
 # emotions 라우터 import
 from src.routers.emotions import router as emotions_router
+from src.routers.users import router as users_router
 from fastapi.middleware.cors import CORSMiddleware
-
-import os
-import csv
 
 app = FastAPI(
     title="MoodTune",
@@ -12,6 +10,8 @@ app = FastAPI(
 )
 
 app.include_router(emotions_router)  # 라우터 포함
+app.include_router(users_router)  # 라우터 포함
+
 
 app.add_middleware(
     CORSMiddleware,
