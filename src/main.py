@@ -3,6 +3,9 @@ from fastapi import FastAPI
 from src.routers.emotions import router as emotions_router
 from fastapi.middleware.cors import CORSMiddleware
 
+import os
+import csv
+
 app = FastAPI(
     title="MoodTune",
     description="MoodTune의 API 문서입니다.",

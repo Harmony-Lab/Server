@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body
+from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from src.models.emotion import Emotion
 from src.DetectEmotion import GetDominantEmotion
