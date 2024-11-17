@@ -1,3 +1,4 @@
+'''
 import pandas as pd
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -47,3 +48,4 @@ df = pd.read_csv(r'data\filtered_data.csv')
 #     'C:/Users/dldns/K-lab/Server/data/filtered_data_with_tracks.csv', index=False)
 
 # print("곡 정보가 추가된 CSV 파일이 저장되었습니다!")
+'''
