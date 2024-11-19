@@ -36,9 +36,8 @@ async def create_user_session(session_id: str = Cookie(None), response: Response
 @router.get("/api/users/reset-session")
 async def reset_session(session_id: str = Cookie(None), response: Response = None):
     # 세션 ID가 없거나 유효하지 않으면 오류 반환
-    if not session_id or session_id not in user_data_store:
-        raise HTTPException(status_code=404, detail="Session not found")
-
+    await get_user(session_id)
+    
     # 기존 세션 데이터 삭제 후 새로운 세션 데이터 생성
     del user_data_store[session_id]
     new_session_id = create_session()  # 새로운 세션 ID 생성
