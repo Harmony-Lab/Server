@@ -1,8 +1,8 @@
 from pydantic import BaseModel
-from datetime import datetime
+from typing import Literal
 
 class Emotion(BaseModel):
-    id: int
-    user_id: int
-    emotion: str
-    timestamp: datetime
+    emotion: Literal[
+        'sad', 'happy', 'energetic', 'calm', 'angry', 
+        'fear', 'neutral', 'disgust', 'surprise'
+    ]

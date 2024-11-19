@@ -1,8 +1,8 @@
-from fastapi import APIRouter
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, Cookie
 from src.models.emotion import Emotion
 from src.DetectEmotion import BasetoImage, GetEmotionProbsDeepFace, GetEmotionProbsFER, MergeEmotionProbs
 from pydantic import BaseModel
+from src.routers.users import get_user
 
 router = APIRouter()
 
@@ -20,7 +20,10 @@ class ImagePathRequest(BaseModel):
             }
             }
         })
-async def detect_emotion(request: ImagePathRequest):
+async def detect_emotion(request: ImagePathRequest, session_id: str = Cookie(None)):
+    # 사용자 데이터 조회
+    user_data = await get_user(session_id)
+    
     # Base64 데이터 이미지 변환
     img = BasetoImage(base64_data=request.img_path)
     
@@ -30,5 +33,5 @@ async def detect_emotion(request: ImagePathRequest):
 
     # 두 모델의 결과를 결합
     dominant_emotion, combined_probs = MergeEmotionProbs(deepface_probs, fer_probs)
-
-    return JSONResponse(content={"emotion": dominant_emotion})
+    user_data.emotion = Emotion(emotion=dominant_emotion)
+    return {"emotion": user_data.emotion}
