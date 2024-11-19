@@ -1,5 +1,6 @@
 from pydantic import BaseModel
+from src.models.emotion import Emotion
 
 class User(BaseModel):
-    emotion: str
+    emotion: Emotion
     playlist: str
