@@ -1,11 +1,8 @@
-from fastapi import APIRouter, Cookie, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, Cookie
 from src.models.emotion import Emotion
-from src.models.user import User
 from src.DetectEmotion import BasetoImage, GetEmotionProbsDeepFace, GetEmotionProbsFER, MergeEmotionProbs
 from pydantic import BaseModel
 from src.routers.users import get_user
-
 
 router = APIRouter()
 

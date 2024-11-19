@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Response, status, Cookie
+from fastapi import APIRouter, HTTPException, Response, Cookie
 from src.models.user import User
 from src.models.emotion import Emotion
 from typing import Optional
