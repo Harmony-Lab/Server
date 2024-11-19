@@ -24,7 +24,7 @@ async def create_user_session(session_id: str = Cookie(None), response: Response
     # 세션 ID가 없으면 새로운 사용자 데이터 생성
     if not session_id or session_id not in user_data_store:
         session_id = create_session()  # 새로운 세션 ID 생성
-        user_data_store[session_id] = User(emotion=Emotion(emotion = "happy"), playlist="list") # 새로운 user 생성 - 미완
+        user_data_store[session_id] = User(emotion=None, playlist=None) # 새로운 user 생성 - 미완
         
         # 쿠키에 HttpOnly 속성을 추가하여 JavaScript에서 접근할 수 없게 만듦
         response.set_cookie(key="session_id", value=session_id, httponly=True, path="/")
@@ -41,7 +41,7 @@ async def reset_session(session_id: str = Cookie(None), response: Response = Non
     # 기존 세션 데이터 삭제 후 새로운 세션 데이터 생성
     del user_data_store[session_id]
     new_session_id = create_session()  # 새로운 세션 ID 생성
-    user_data_store[new_session_id] = User(emotion=Emotion(emotion = "happy"), playlist="new list")
+    user_data_store[new_session_id] = User(emotion=None, playlist=None)
     
     # 쿠키에 HttpOnly 속성을 추가하여 JavaScript에서 접근할 수 없게 만듦
     response.set_cookie(key="session_id", value=new_session_id, httponly=True, path="/")

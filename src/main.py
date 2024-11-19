@@ -1,7 +1,10 @@
 from fastapi import FastAPI
-# emotions 라우터 import
+
+# 라우터 import
 from src.routers.emotions import router as emotions_router
 from src.routers.users import router as users_router
+from src.routers.playlists import router as playlists_router
+
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
@@ -11,6 +14,8 @@ app = FastAPI(
 
 app.include_router(emotions_router)  # 라우터 포함
 app.include_router(users_router)  # 라우터 포함
+app.include_router(playlists_router)  # 라우터 포함
+
 
 
 app.add_middleware(
