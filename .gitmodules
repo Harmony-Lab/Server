@@ -1,0 +1,3 @@
+[submodule "Emotion-recognition"]
+    path = Emotion-recognition
+    url = https://github.com/Harmony-Lab/Server
