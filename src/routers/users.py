@@ -34,9 +34,6 @@ async def create_user_session(response: Response = None):
     session_id = create_session()  # 새로운 세션 ID 생성
     user_data_store[session_id] = User(emotion=None, playlist=None)
         
-    # 쿠키에 HttpOnly 속성을 추가하여 JavaScript에서 접근할 수 없게 만듦
-    response.set_cookie(key="session_id", value=session_id, httponly=True, path="/")
-        
     # 사용자의 세션ID 반환
     return {"session_id": session_id}
 
@@ -63,10 +60,7 @@ async def restart_session(session_id: str = Cookie(None), response: Response = N
         
     new_session_id = create_session()  # 새로운 세션 ID 생성
     user_data_store[new_session_id] = User(emotion=None, playlist=None)
-    
-    # 쿠키에 HttpOnly 속성을 추가하여 JavaScript에서 접근할 수 없게 만듦
-    response.set_cookie(key="session_id", value=new_session_id, httponly=True, path="/")
-    
+        
     return {"session_id": new_session_id}
       
 # 세션으로 사용자 데이터 조회
