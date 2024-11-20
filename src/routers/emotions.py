@@ -34,4 +34,4 @@ async def detect_emotion(request: ImagePathRequest, session_id: str = Cookie(Non
     # 두 모델의 결과를 결합
     dominant_emotion, combined_probs = MergeEmotionProbs(deepface_probs, fer_probs)
     user_data.emotion = Emotion(emotion=dominant_emotion)
-    return {"emotion": user_data.emotion}
+    return user_data.emotion

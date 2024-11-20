@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException, Response, Cookie
 from src.models.user import User
-from src.models.emotion import Emotion
 from typing import Optional
 from uuid import uuid4
 
@@ -55,10 +54,13 @@ async def create_user_session(response: Response = None):
         })
 async def restart_session(session_id: str = Cookie(None), response: Response = None):
     # 세션 ID가 없거나 유효하지 않으면 오류 반환
-    await get_user(session_id)
+    if not session_id:
+        raise HTTPException(status_code=404, detail="Session not found")
     
-    # 기존 세션 데이터 삭제 후 새로운 세션 데이터 생성
-    del user_data_store[session_id]
+    if session_id in user_data_store:
+        # 기존 세션 데이터 삭제 후 새로운 세션 데이터 생성
+        del user_data_store[session_id]
+        
     new_session_id = create_session()  # 새로운 세션 ID 생성
     user_data_store[new_session_id] = User(emotion=None, playlist=None)
     
