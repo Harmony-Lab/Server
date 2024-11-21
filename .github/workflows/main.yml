@@ -26,6 +26,11 @@ jobs:
           echo "${{ secrets.EC2_KEY }}" > key.pem
           chmod 400 key.pem
 
+          # EC2에 접속하여 디렉토리 생성
+          ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << EOF
+            mkdir -p /home/***/app
+          EOF
+
           # EC2로 파일 전송
           scp -o StrictHostKeyChecking=no -i key.pem -r ./* $EC2_USER@$EC2_HOST:/home/***/app
 
