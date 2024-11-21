@@ -66,5 +66,5 @@ def create_playlist(emotion: str, play_list_size: int) -> Playlist:
     # Playlist 객체 생성 및 반환
     return Playlist(size=play_list_size, songs=songs)
 
-playlist = create_playlist("sad", 5)
-print(playlist)
+# playlist = create_playlist("sad", 5)
+# print(playlist)

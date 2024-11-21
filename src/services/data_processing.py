@@ -48,4 +48,4 @@ def process_txt():
         print(f"Error: {str(e)}")
         
 # 함수 호출
-process_txt()
+# process_txt()
