@@ -28,7 +28,8 @@ jobs:
 
           # EC2에 접속하여 디렉토리 생성
           ssh -o StrictHostKeyChecking=no -i key.pem -tt $EC2_USER@$EC2_HOST << EOF
-            mkdir -p /home/***/app
+            sudo mkdir -p /home/***/app
+            sudo chown -R $EC2_USER:$EC2_USER /home/***/app
           EOF
 
           # EC2로 파일 전송
