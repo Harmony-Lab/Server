@@ -22,10 +22,14 @@ jobs:
           EC2_USER: ${{ secrets.EC2_USER }}
           EC2_KEY: ${{ secrets.EC2_KEY }}
         run: |
+          # SSH 키 설정
+          echo "${{ secrets.EC2_KEY }}" > key.pem
+          chmod 400 key.pem
+
           # EC2로 파일 전송
-          scp -o StrictHostKeyChecking=no -i "/Users/zziglet/aws/moodtune-keypair.pem" -r /Users/zziglet/aws $EC2_USER@$EC2_HOST:/home/***/app
+          scp -o StrictHostKeyChecking=no -i key.pem -r ./* $EC2_USER@$EC2_HOST:/home/***/app
 
           # EC2에 접속하여 서비스 재시작
-          ssh -o StrictHostKeyChecking=no -i "/Users/zziglet/aws/moodtune-keypair.pem" $EC2_USER@$EC2_HOST << EOF
+          ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << EOF
             sudo systemctl restart fastapi
           EOF
