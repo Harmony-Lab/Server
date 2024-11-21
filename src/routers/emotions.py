@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Cookie
 from src.models.emotion import Emotion
-from src.DetectEmotion import detect_emotion
+from src.services.DetectEmotion import detect_emotion
 from pydantic import BaseModel
 from src.routers.users import get_user
 

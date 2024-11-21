@@ -13,7 +13,7 @@ async def create_user_playlist(session_id: str = Cookie(None)):
     
     # 사용자의 Playlist 생성
     try:
-        playlist = create_playlist("happy", PLAYLIST_SIZE)
+        playlist = create_playlist(user_data.emotion.emotion, PLAYLIST_SIZE)
         user_data.playlist = playlist
         return playlist
     except ValueError as e:
