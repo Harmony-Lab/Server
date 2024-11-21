@@ -26,7 +26,7 @@ jobs:
           chmod 600 moodtune-keypair.pem
 
           # Transfer files to EC2
-          scp -o StrictHostKeyChecking=no -i moodtune-keypair.pem -r /Users/zziglet/aws $EC2_USER@$EC2_HOST:/home/ec2-user/app
+          scp -o StrictHostKeyChecking=no -i "/Users/zziglet/aws/moodtune-keypair.pem" $EC2_USER@$EC2_HOST:/home/ec2-user/app
 
           # SSH into EC2 and restart the service
           ssh -o StrictHostKeyChecking=no -i moodtune-keypair.pem $EC2_USER@$EC2_HOST << EOF
