@@ -27,7 +27,7 @@ jobs:
           chmod 400 key.pem
 
           # EC2에 접속하여 디렉토리 생성
-          ssh -o StrictHostKeyChecking=no -i key.pem -t $EC2_USER@$EC2_HOST << EOF
+          ssh -o StrictHostKeyChecking=no -i key.pem -tt $EC2_USER@$EC2_HOST << EOF
             mkdir -p /home/***/app
           EOF
 
@@ -35,6 +35,6 @@ jobs:
           scp -o StrictHostKeyChecking=no -i key.pem -r ./* $EC2_USER@$EC2_HOST:/home/***/app
 
           # EC2에 접속하여 서비스 재시작
-          ssh -o StrictHostKeyChecking=no -i key.pem -t $EC2_USER@$EC2_HOST << EOF
+          ssh -o StrictHostKeyChecking=no -i key.pem -tt $EC2_USER@$EC2_HOST << EOF
             sudo systemctl restart fastapi
           EOF
