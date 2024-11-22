@@ -16,8 +16,6 @@ app.include_router(emotions_router)  # 라우터 포함
 app.include_router(users_router)  # 라우터 포함
 app.include_router(playlists_router)  # 라우터 포함
 
-
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # 모든 출처 허용
