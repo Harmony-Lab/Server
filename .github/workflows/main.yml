@@ -56,7 +56,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
+      - name: Clean up unused Docker resources
+        run: |
+          docker system prune -af --volumes
+
       - name: Docker run
         run: |
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
           docker run -d -p 8000:8000 --name server --restart always ${{ env.DOCKER_IMAGE }}:latest
+
