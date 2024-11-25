@@ -5,11 +5,8 @@ WORKDIR /test
 
 # 의존성 설치
 COPY ./requirements.txt /test/requirements.txt
-RUN pip install --no-cache-dir --upgrade -r /test/requirements.txt
-RUN pip install "uvicorn<0.23.0" --no-cache-dir
-RUN pip install --upgrade typing_extensions
-RUN pip install tensorflow==2.7.0 tf-keras --no-cache-dir
-RUN pip install --upgrade deepface retinaface
+RUN pip install --no-cache-dir --upgrade -r /test/requirements.txt \
+    && pip install --upgrade typing_extensions
 
 # 애플리케이션 복사
 COPY ./src /test/src
