@@ -1,27 +1,19 @@
-# Base image
 FROM python:3.9-slim
 
-# Set the working directory
+# 작업 디렉토리 설정
 WORKDIR /test
 
-# Install system dependencies for TensorFlow and OpenGL
-RUN apt-get update && apt-get install -y \
-    libgl1-mesa-glx libglib2.0-0 && \
-    rm -rf /var/lib/apt/lists/*
-
-# Copy and install Python dependencies
+# 의존성 설치
 COPY ./requirements.txt /test/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /test/requirements.txt
+RUN pip install tensorflow==2.7.0 tf-keras --no-cache-dir
+RUN pip install --upgrade deepface retinaface
 
-# Copy application source code
+# 애플리케이션 복사
 COPY ./src /test/src
 
-# Verify TensorFlow installation and CUDA compatibility
-RUN python -c "import tensorflow as tf; print('TensorFlow version:', tf.__version__)" && \
-    python -c "from tensorflow.python.client import device_lib; print(device_lib.list_local_devices())"
+# TensorFlow 버전 출력 (디버깅용)
+RUN python -c "import tensorflow as tf; print(tf.__version__)"
 
-# Expose FastAPI application port
-EXPOSE 8000
-
-# Start FastAPI server
+# FastAPI 서버 실행
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
