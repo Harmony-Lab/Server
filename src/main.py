@@ -9,6 +9,8 @@ from src.routers.playlists import router as playlists_router
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
+import tensorflow as tf
+
 # FastAPI 애플리케이션 초기화
 app = FastAPI(
     title="MoodTune",
@@ -35,6 +37,9 @@ app.add_middleware(
     TrustedHostMiddleware,
     allowed_hosts=["localhost", "127.0.0.1", "*.d1sfoak4w9c4ga.cloudfront.net"],  # 허용할 도메인 추가
 )
+
+tf_version = tf.__version__
+print(f"TensorFlow version: {tf_version}")
 
 # 기본 엔드포인트
 @app.get("/", tags=["Root"])
