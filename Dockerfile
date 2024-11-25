@@ -3,6 +3,12 @@ FROM python:3.9-slim
 # 작업 디렉토리 설정
 WORKDIR /test
 
+# 시스템 의존성 설치
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-glx \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # 의존성 설치
 COPY ./requirements.txt /test/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /test/requirements.txt \
