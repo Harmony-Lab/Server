@@ -7,5 +7,3 @@ opencv-python==4.8.0.74
 numpy==1.21.6
 tensorflow-cpu==2.18.0
 uvicorn==0.22.0
-setuptools<65
-python_version >= "3.7" and python_version < "3.11"
