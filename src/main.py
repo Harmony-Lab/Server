@@ -26,7 +26,7 @@ app.include_router(playlists_router, prefix="/api/playlists", tags=["Playlists"]
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 모든 출처 허용
+    allow_origins=["http://13.125.215.233:3000"],
     allow_credentials=True,  # 쿠키와 인증 정보를 포함할 수 있도록 설정
     allow_methods=["*"],  # 모든 HTTP 메서드 허용
     allow_headers=["*"],  # 모든 헤더 허용
