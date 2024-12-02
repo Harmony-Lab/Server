@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copy the requirements file and install Python dependencies
 COPY ./requirements.txt /code/requirements.txt
-RUN pip install --no-cache-dir -r /code/requirements.txt
+RUN pip install --no-cache-dir -r /code/requirements.txt \
+    && pip install --upgrade typing_extensions
 
 # Copy the application source code
 COPY ./src /code/src
