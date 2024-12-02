@@ -18,7 +18,7 @@ def create_session():
     return str(uuid4())
 
 # 사용자 세션 생성하고 쿠키 설정 + 세션값 반환
-@router.get("/api/users/create-session",
+@router.get("/create-session",
             responses={
             200: {
                 "content": {
@@ -40,7 +40,7 @@ async def create_user_session(response: Response = None):
     return {"session_id": session_id}
 
 # Restart : 사용자 세선 삭제 후 새로운 세션 데이터 생성하여 쿠키설정
-@router.get("/api/users/restart-session",
+@router.get("/restart-session",
             responses={
             200: {
                 "content": {
@@ -66,6 +66,6 @@ async def restart_session(session_id: str = Cookie(None), response: Response = N
     return {"session_id": new_session_id}
       
 # 세션으로 사용자 데이터 조회
-@router.get("/api/users/", response_model=User)
+@router.get("/", response_model=User)
 async def get_user_data(session_id: Optional[str] = Cookie(None)):
     return await get_user(session_id) 

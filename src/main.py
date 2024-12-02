@@ -19,9 +19,9 @@ app = FastAPI(
 )
 
 # 라우터 등록
-app.include_router(emotions_router, prefix="/emotions", tags=["Emotions"])
-app.include_router(users_router, prefix="/users", tags=["Users"])
-app.include_router(playlists_router, prefix="/playlists", tags=["Playlists"])
+app.include_router(emotions_router, prefix="/api/emotions", tags=["Emotions"])
+app.include_router(users_router, prefix="/api/users", tags=["Users"])
+app.include_router(playlists_router, prefix="/api/playlists", tags=["Playlists"])
 
 # CORS 설정
 app.add_middleware(
@@ -34,8 +34,3 @@ app.add_middleware(
 
 tf_version = tf.__version__
 print(f"TensorFlow version: {tf_version}")
-
-# 기본 엔드포인트
-@app.get("/", tags=["Root"])
-async def root():
-    return {"message": "Welcome to MoodTune API!"}
