@@ -9,7 +9,7 @@ router = APIRouter()
 class ImagePathRequest(BaseModel):
     img_path: str
 
-@router.post("/api/emotions", description= "감정 인식 결과 전달",
+@router.post("/", description= "감정 인식 결과 전달",
         responses={
             200: {
                 "content": {

@@ -6,7 +6,7 @@ from src.models.playlist import Playlist
 router = APIRouter()
 PLAYLIST_SIZE = 5
 
-@router.post("/api/playlists/", response_model=Playlist)
+@router.post("/", response_model=Playlist)
 async def create_user_playlist(session_id: str = Cookie(None)):
     # 사용자 데이터 조회
     user_data = await get_user(session_id)
