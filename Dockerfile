@@ -10,7 +10,7 @@ COPY ./requirements.txt /code/requirements.txt
 RUN pip install --no-cache-dir -r /code/requirements.txt
 
 # 이제 app 에 있는 파일들을 /code/app 에 복사
-COPY ./app /code/app
+COPY ./src /code/src
 
 # 실행
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "80"]
