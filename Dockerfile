@@ -1,4 +1,4 @@
-FROM python:3.12.5
+FROM python:3.9-slim
 
 # /code 폴더 만들기
 WORKDIR /code

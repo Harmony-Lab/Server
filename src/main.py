@@ -35,7 +35,7 @@ app.add_middleware(
 # TrustedHostMiddleware 설정 (신뢰할 수 있는 도메인만 허용)
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["localhost", "127.0.0.1", "*.d1sfoak4w9c4ga.cloudfront.net"],  # 허용할 도메인 추가
+    allowed_hosts=["localhost", "127.0.0.1", "13.125.215.233"],  # 허용할 도메인 추가
 )
 
 tf_version = tf.__version__
