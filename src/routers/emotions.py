@@ -20,7 +20,7 @@ class ImagePathRequest(BaseModel):
             }
             }
         })
-async def detect_emotio_user(request: ImagePathRequest, session_id: str = Cookie(None)):
+async def detect_emotion_user(request: ImagePathRequest, session_id: str = Cookie(None)):
     # 사용자 데이터 조회
     user_data = await get_user(session_id)
     
