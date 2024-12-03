@@ -53,10 +53,14 @@ async def create_user_session(response: Response = None):
         })
 async def restart_session(session_id: str = Cookie(None), response: Response = None):
     
-    if session_id and session_id in user_data_store:
-        # 기존 세션 데이터 삭제 후 새로운 세션 데이터 생성
-        del user_data_store[session_id]
-        response.delete_cookie("session_id")
+    # 기존의 session_id가 쿠키에 있는 경우 삭제
+    if session_id:
+        # 쿠키에서 기존 session_id 삭제
+        response.delete_cookie(key="session_id")  
+        
+        # user_data_store에서 해당 세션 ID에 대한 사용자 데이터 삭제
+        if session_id in user_data_store:
+            del user_data_store[session_id]
         
     new_session_id = create_session()  # 새로운 세션 ID 생성
     user_data_store[new_session_id] = User(emotion=None, playlist=None)
