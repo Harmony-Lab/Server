@@ -1,8 +1,6 @@
-from fastapi import APIRouter, Cookie
-from src.models.emotion import Emotion
+from fastapi import APIRouter
 from src.services.DetectEmotion import detect_emotion
 from pydantic import BaseModel
-from src.routers.users import get_user
 
 router = APIRouter()
 
@@ -20,13 +18,7 @@ class ImagePathRequest(BaseModel):
             }
             }
         })
-async def detect_emotion_user(request: ImagePathRequest, session_id: str = Cookie(None)):
-    # 사용자 데이터 조회
-    user_data = await get_user(session_id)
-    
+async def detect_emotion_user(request: ImagePathRequest):
     # 사용자의 emotion 판단
     dominant_emotion = await detect_emotion(request.img_path)
-    
-    # 사용자 emotion 정보 수정
-    user_data.emotion = Emotion(emotion=dominant_emotion)
     return {"emotion": dominant_emotion}
