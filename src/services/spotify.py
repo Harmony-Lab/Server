@@ -18,7 +18,6 @@ sp = spotipy.Spotify(auth_manager=auth_manager)
 # 현재 파일의 부모 디렉토리 경로 가져오기
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # 현재 파일의 절대 경로
 PARENT_DIR = os.path.dirname(BASE_DIR)  # src
-PARENT_DIR = os.path.dirname(PARENT_DIR)  # ai
 FILE_DIR = os.path.join(PARENT_DIR, "data")
 
 # 라벨에 따른 파일 이름 매핑
