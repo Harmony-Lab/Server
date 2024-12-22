@@ -19,9 +19,9 @@ class ImagePathRequest(BaseModel):
             }
             }
         })
-async def detect_emotion_user(request: ImagePathRequest, token: str = Cookie(None)):
+async def detect_emotion_user(request: ImagePathRequest, jwtToken: str = Cookie(None)):
     try:
-        user = await get_user_data(token)
+        user = await get_user_data(jwtToken)
         
         # 사용자의 dominant emotion 판단
         dominant_emotion = await detect_emotion(request.img_path)
