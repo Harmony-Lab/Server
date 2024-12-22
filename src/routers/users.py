@@ -35,7 +35,7 @@ def create_jwt_token(user_id: str):
                 "content": {
                 "application/json": {
                     "example": {
-                        "token": "user_access_token"}
+                        "jwtToken": "user_access_token"}
                 }
             }
             }
@@ -48,9 +48,9 @@ async def create_user_session(response: Response = None):
     print(access_token)
     
     # JWT 토큰을 쿠키에 저장
-    response.set_cookie(key="token", value=access_token, httponly=True)
+    response.set_cookie(key="jwtToken", value=access_token, httponly=True)
         
-    return {"token": access_token}
+    return {"jwtToken": access_token}
 
 # Restart : 사용자 세션 삭제 후 새로운 세션 데이터 생성하여 JWT 토큰 반환
 @router.get("/restart-session",
@@ -59,14 +59,14 @@ async def create_user_session(response: Response = None):
                 "content": {
                 "application/json": {
                     "example": {
-                        "token": "new_user_access_token"}
+                        "jwtToken": "new_user_access_token"}
                 }
             }
             }
         })
-async def restart_session(response: Response, token: str = Cookie(None)):
+async def restart_session(response: Response, jwtToken: str = Cookie(None)):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(jwtToken, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload.get("sub")
         
         # 기존 사용자 데이터 삭제
@@ -84,15 +84,15 @@ async def restart_session(response: Response, token: str = Cookie(None)):
     new_access_token = create_jwt_token(new_user_id)  # 새로운 JWT 토큰 생성
     
     # 새로운 JWT 토큰을 쿠키에 저장
-    response.set_cookie(key="token", value=new_access_token, httponly=True)
+    response.set_cookie(key="jwtToken", value=new_access_token, httponly=True)
     
-    return {"token": new_access_token}
+    return {"jwtToken": new_access_token}
       
 # JWT 토큰으로 사용자 데이터 조회
 @router.get("/", response_model=User)
-async def get_user_data(token: str):
+async def get_user_data(jwtToken: str):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(jwtToken, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload.get("sub")
         return await get_user(user_id)
     except jwt.ExpiredSignatureError:
