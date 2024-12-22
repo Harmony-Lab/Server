@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Response, Cookie
+from fastapi import APIRouter, HTTPException, Response, Cookie, Header
 from src.models.user import User
 from typing import Optional
 from uuid import uuid4
@@ -63,9 +63,11 @@ async def create_user_session(response: Response = None):
             }
             }
         })
-async def restart_session(response: Response, token: str = Cookie(None)):
+async def restart_session(response: Response, authorization: str = Header(None)):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        # Authorization 헤더에서 JWT 토큰 추출
+        jwtToken = authorization.split(" ")[1] if authorization else None
+        payload = jwt.decode(jwtToken, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload.get("sub")
         
         # 기존 사용자 데이터 삭제
