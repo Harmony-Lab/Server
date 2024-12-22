@@ -92,11 +92,8 @@ async def restart_session(response: Response, token: str = Cookie(None)):
 @router.get("/", response_model=User)
 async def get_user_data(token: str):
     try:
-        print(token)
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        print(payload)
         user_id = payload.get("sub")
-        print(user_id)
         return await get_user(user_id)
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Token has expired")
