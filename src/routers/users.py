@@ -90,7 +90,7 @@ async def restart_session(response: Response, token: str = Cookie(None)):
       
 # JWT 토큰으로 사용자 데이터 조회
 @router.get("/", response_model=User)
-async def get_user_data(token: str = Cookie(None)):
+async def get_user_data(token: str):
     try:
         print(token)
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
